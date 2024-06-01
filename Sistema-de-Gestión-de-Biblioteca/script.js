@@ -46,15 +46,23 @@ class Usuario {
   prestarLibro(libro) {
     // Añade un libro a la lista de libros prestados del usuario.
     this.librosPrestados.push(libro);
+    libro.prestar();
+    return "'" + libro.titulo + "'" + " fue agregado a tu lista";
   }
 
   devolverLibro(libro) {
     // Elimina un libro de la lista de libros prestados del usuario.
-    delete this.librosPrestados(libro);
+    this.librosPrestados.splice(libro);
+    return "'" + libro.titulo + "'" + " fue removido de tu lista";
   }
   mostrarLibrosPrestados() {
     // Muestra la información de todos los libros prestados por el usuario.
-    console.log(this.librosPrestados);
+    return this.librosPrestados.map((element) => ({
+      Titulo: element.titulo,
+      Autor: element.autor,
+      ISBN: element.isbn,
+      Estado: element.estado,
+    }));
   }
 }
 
@@ -85,14 +93,33 @@ class Biblioteca {
     // Muestra la información de todos los usuarios registrados en la biblioteca.
   }
 }
+
 const nuevolibro = new Libro(
   "Lo que el viento se llevo",
   "Margaret Mitchell",
   "ABC12345",
-  "Disponibles"
+  "Disponible"
 );
-console.log(nuevolibro);
+
+/*console.log(nuevolibro);
 console.log(nuevolibro.prestar());
 console.log(nuevolibro.devolver());
 console.log(nuevolibro.mostrarInfo());
-console.log(nuevolibro);
+console.log(nuevolibro);*/
+
+const nuevoUsuario = new Usuario("Pedro", "Y5640683Q");
+console.log(nuevoUsuario);
+console.log(nuevoUsuario.prestarLibro(nuevolibro));
+console.log(
+  nuevoUsuario.prestarLibro(
+    new Libro(
+      "Padre Rico Padre Pobre",
+      "Robert Kiyosaki",
+      "DFG54321",
+      "Disponible"
+    )
+  )
+);
+console.log(nuevoUsuario.mostrarLibrosPrestados());
+
+console.log(nuevoUsuario);
